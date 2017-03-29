@@ -1,29 +1,35 @@
 <?php
 
-namespace App;
+namespace App\ORM;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    protected $table = 'users';
+    protected $fields = [
+        'first_name',
+        'last_name',
+        'email',
+        'password'
+    ];
     protected $fillable = [
         'name', 'email', 'password',
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @param null
+     * @return void
+     **/
+    public function getFields()
+    {
+        return $this->fields;
+    }
 }

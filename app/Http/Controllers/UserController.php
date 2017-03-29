@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\ContractModel
+use \App\Models\UserModel
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ContractController extends Controller
+class UserController extends Controller
 {
 
 
-    var $cm;
+    var $qm;
 
 
     function __construct()
     {
 
-        $this->cm = new ContractModel;
+        $this->qm = new UserModel;
 
     }
 
@@ -29,7 +29,7 @@ class ContractController extends Controller
     public function view($id)
     {
 
-        $data = $this->lm->get($id);
+        $data = $this->qm->get($id);
 
         if($data == false) {
             return redirect('/')
@@ -37,7 +37,7 @@ class ContractController extends Controller
                 ->with('message','Item not found.');
         }
 
-        return view('contract.view', $data);
+        return view('user.view', $data);
     }
 
 
@@ -50,8 +50,8 @@ class ContractController extends Controller
 
         $filters['q'] = $request->get('q', null);
 
-        $data = $this->lm->list($filters);
-        return view('contract.list', $data);
+        $data = $this->qm->list($filters);
+        return view('user.list', $data);
 
     }
 
@@ -73,22 +73,22 @@ class ContractController extends Controller
             ]);
 
             $createData = $request->all();
-            $create = $this->lm->create($createData);
+            $create = $this->qm->create($createData);
 
             if(!$create) {
                 return redirect()
                     ->back()
                     ->with('status', 'error')
-                    ->with('message','Contract creation failed.');
+                    ->with('message','User creation failed.');
             }
 
-            return redirect()->route('view-contract', ['id' => $create])
+            return redirect()->route('view-user', ['id' => $create])
                 ->with('status', 'success')
-                ->with('message','Contract created succesfully.');
+                ->with('message','User created succesfully.');
 
         }
 
-        return view('contract.create', $data);
+        return view('user.create', $data);
 
     }
 
@@ -102,7 +102,7 @@ class ContractController extends Controller
     {
 
 
-        $data = $this->cm->get($id);
+        $data = $this->qm->get($id);
 
         if($data == false) {
             return redirect('/')
@@ -119,21 +119,21 @@ class ContractController extends Controller
             ]);
 
             $updateData = $request->all();
-            $update = $this->cm->update($id, $updateData);
+            $update = $this->qm->update($id, $updateData);
 
             if(!$update) {
                 return redirect()
                         ->back()
                         ->with('status', 'error')
-                        ->with('message','Contract update failed.');
+                        ->with('message','User update failed.');
             }
 
-            return redirect()->route('view-contract', ['id' => $data->id])
+            return redirect()->route('view-user', ['id' => $data->id])
                     ->with('status', 'success')
-                    ->with('message','Contract updated succesfully.');
+                    ->with('message','User updated succesfully.');
         }
 
-        return view('contract.update', $data);
+        return view('user.update', $data);
 
     }
 
@@ -145,16 +145,16 @@ class ContractController extends Controller
     public function delete($id)
     {
 
-        $delete = $this->cm->delete($id);
+        $delete = $this->qm->delete($id);
 
         if(!$delete) {
-            return redirect()->route('view-contracts')
+            return redirect()->route('view-users')
                 ->with('status', 'error')
-                ->with('message','Contract deletion failed.');
+                ->with('message','User deletion failed.');
         }
 
-        return redirect()->route('view-contracts')
+        return redirect()->route('view-users')
             ->with('status', 'success')
-            ->with('message','Contract deleted succesfully.');
+            ->with('message','User deleted succesfully.');
     }
 }

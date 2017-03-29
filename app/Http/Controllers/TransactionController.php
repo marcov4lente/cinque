@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\ContractModel
+use \App\Models\TransactionModel
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ContractController extends Controller
+class TransactionController extends Controller
 {
 
 
@@ -17,7 +17,7 @@ class ContractController extends Controller
     function __construct()
     {
 
-        $this->cm = new ContractModel;
+        $this->cm = new TransactionModel;
 
     }
 
@@ -37,7 +37,7 @@ class ContractController extends Controller
                 ->with('message','Item not found.');
         }
 
-        return view('contract.view', $data);
+        return view('transaction.view', $data);
     }
 
 
@@ -51,7 +51,7 @@ class ContractController extends Controller
         $filters['q'] = $request->get('q', null);
 
         $data = $this->lm->list($filters);
-        return view('contract.list', $data);
+        return view('transaction.list', $data);
 
     }
 
@@ -79,16 +79,16 @@ class ContractController extends Controller
                 return redirect()
                     ->back()
                     ->with('status', 'error')
-                    ->with('message','Contract creation failed.');
+                    ->with('message','Transaction creation failed.');
             }
 
-            return redirect()->route('view-contract', ['id' => $create])
+            return redirect()->route('view-transaction', ['id' => $create])
                 ->with('status', 'success')
-                ->with('message','Contract created succesfully.');
+                ->with('message','Transaction created succesfully.');
 
         }
 
-        return view('contract.create', $data);
+        return view('transaction.create', $data);
 
     }
 
@@ -125,15 +125,15 @@ class ContractController extends Controller
                 return redirect()
                         ->back()
                         ->with('status', 'error')
-                        ->with('message','Contract update failed.');
+                        ->with('message','Transaction update failed.');
             }
 
-            return redirect()->route('view-contract', ['id' => $data->id])
+            return redirect()->route('view-transaction', ['id' => $data->id])
                     ->with('status', 'success')
-                    ->with('message','Contract updated succesfully.');
+                    ->with('message','Transaction updated succesfully.');
         }
 
-        return view('contract.update', $data);
+        return view('transaction.update', $data);
 
     }
 
@@ -148,13 +148,13 @@ class ContractController extends Controller
         $delete = $this->cm->delete($id);
 
         if(!$delete) {
-            return redirect()->route('view-contracts')
+            return redirect()->route('view-transactions')
                 ->with('status', 'error')
-                ->with('message','Contract deletion failed.');
+                ->with('message','Transaction deletion failed.');
         }
 
-        return redirect()->route('view-contracts')
+        return redirect()->route('view-transactions')
             ->with('status', 'success')
-            ->with('message','Contract deleted succesfully.');
+            ->with('message','Transaction deleted succesfully.');
     }
 }
