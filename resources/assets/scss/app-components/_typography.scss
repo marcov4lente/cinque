@@ -1,0 +1,42 @@
+html, body {
+    font-family: $font-family-sans-serif;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: $text-color;
+    background-colour: $body-bg;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: $header-color;
+}
+
+h2 {
+    font-size: 2.2em;
+    color: $header-color;
+}
+
+h3 {
+    font-size: 1.9em;
+    color: $header-color;
+}
+
+h4 {
+    font-size: 1.6em;
+    color: $header-color;
+}
+
+h5 {
+    font-size: 1.4em;
+    color: $header-color;
+}
+
+h6 {
+    font-size: 1.2em;
+    color: $header-color;
+}
+
+h6 {
+    color: $link-color;
+    text-decoration: none;
+}

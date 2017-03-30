@@ -92,7 +92,7 @@ CREATE TABLE `cinque_clients_log` (
 
 CREATE TABLE `cinque_quotes` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `status` ENUM('accepted', 'rejected', 'expired') NOT NULL,
+  `status` ENUM('accepted', 'rejected', 'expired', 'draft') NOT NULL,
   `client_id` int(11) unsigned NOT NULL,
   `invoice_id` int(11) unsigned NOT NULL,
   `issued_date` timestamp NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE `cinque_quotes` (
 CREATE TABLE `cinque_quotes_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `record_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `status` ENUM('accepted', 'rejected', 'expired') NOT NULL,
+  `status` ENUM('accepted', 'rejected', 'expired', 'draft') NOT NULL,
   `client_id` int(11) unsigned NOT NULL,
   `invoice_id` int(11) unsigned NOT NULL,
   `issued_date` timestamp NOT NULL,
@@ -168,7 +168,7 @@ CREATE TABLE `cinque_quote_items_log` (
 
 CREATE TABLE `cinque_invoices` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `status` ENUM('outstanding', 'settled') NOT NULL,
+  `status` ENUM('outstanding', 'settled', 'draft') NOT NULL,
   `client_id` int(11) unsigned NOT NULL,
   `quote_id` int(11) unsigned NOT NULL,
   `issued_date` timestamp NOT NULL,
@@ -188,7 +188,7 @@ CREATE TABLE `cinque_invoices` (
 CREATE TABLE `cinque_invoices_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `record_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `status` ENUM('outstanding', 'settled') NOT NULL,
+  `status` ENUM('outstanding', 'settled', 'draft') NOT NULL,
   `client_id` int(11) unsigned NOT NULL,
   `quote_id` int(11) unsigned NOT NULL,
   `issued_date` timestamp NOT NULL,

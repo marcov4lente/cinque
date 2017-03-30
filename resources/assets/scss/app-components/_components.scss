@@ -1,0 +1,21 @@
+.btn, .btn-large {
+     background-color: $btn-default-bg-color;
+     color: $btn-default-text-color;
+}
+
+.btn:hover, .btn-large:hover {
+     background-color: $btn-default-bghover-color;
+}
+
+.pagination {
+    margin: 0;
+    padding: 0;
+}
+
+.pagination i {
+    color: $text-color;
+}
+
+.pagination-label {
+    padding-top: 4px;
+}
