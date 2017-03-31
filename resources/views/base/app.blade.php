@@ -25,7 +25,7 @@
 </head>
 <body class="white">
     <ul id="slide-out" class="side-nav fixed red-darken-4 white-text">
-        <li class="red-darken-1 nav-header z-depth-3">
+        <li class="red-darken-1 nav-header">
             <a href="/" class="app-logo-side"><img src="{{ asset('img/logo-inverse.svg') }}" alt="{{ config('app.name', 'Laravel') }}"></a>
         </li>
         <li>
@@ -57,7 +57,7 @@
                     <li>
                         <a href="{{ url('/logout') }}" class="btn white-text"
                             onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
+                            document.getElementById('logout-form').submit();">
                             Logout
                         </a>
                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
