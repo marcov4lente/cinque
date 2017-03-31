@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\ORM\Client;
+use App\Helpers\AccessHelper;
 use Auth;
 
 class ClientModel
@@ -13,9 +14,14 @@ class ClientModel
     function get($id)
     {
 
-        $client = Client::where('id', '=', $id)
+        $q = Client::where('id', '=', $id)
             ->whereNull('deleted_at')
-            ->first();
+
+        if(!AccessHelper::currentUser()->can('')) {
+            $q->where('created_at', '=', Auth::user()->id)
+        }
+
+        $client = $q->first();
 
         return $client;
 
@@ -26,6 +32,10 @@ class ClientModel
 
         $q = Client::whereNull('deleted_at')
             ->orderBy('name', 'asc');
+
+        if(!AccessHelper::currentUser()->can('')) {
+            $q->where('created_at', '=', Auth::user()->id)
+        }
 
         if(isset($filter['q']) && $filter['q'] != null) {
             $q->where(function($q) {
@@ -65,9 +75,7 @@ class ClientModel
     function update($id, $data)
     {
 
-        $client = Client::where('id', '=', $id)
-            ->whereNull('deleted_at')
-            ->first();
+        $client = $this->get($id);
 
         if(!$client) {
             return false;
@@ -93,9 +101,7 @@ class ClientModel
     function delete($id)
     {
 
-        $client = Client::where('id', '=', $id)
-            ->whereNull('deleted_at')
-            ->first();
+        $client = $this->get($id);
 
         if(!$client) {
             return false;

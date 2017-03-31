@@ -11,9 +11,14 @@ class InvoiceModel
     function get($id)
     {
 
-        $invoice = Invoice::where('id', '=', $id)
+        $q = Invoice::where('id', '=', $id)
             ->whereNull('deleted_at')
-            ->first();
+
+        if(!AccessHelper::currentUser()->can('')) {
+            $q->where('created_at', '=', Auth::user()->id)
+        }
+
+        $invoice = $q->first();
 
         return $invoice;
 
@@ -24,6 +29,10 @@ class InvoiceModel
 
         $q = Invoice::whereNull('deleted_at')
             ->orderBy('name', 'asc');
+
+        if(!AccessHelper::currentUser()->can('')) {
+            $q->where('created_at', '=', Auth::user()->id)
+        }
 
         if(isset($filter['q']) && $filter['q'] != null) {
             $q->where(function($q) {
@@ -63,9 +72,7 @@ class InvoiceModel
     function update($id, $data)
     {
 
-        $invoice = Invoice::where('id', '=', $id)
-            ->whereNull('deleted_at')
-            ->first();
+        $invoice = $this->get($id);
 
         if(!$invoice) {
             return false;
@@ -91,9 +98,7 @@ class InvoiceModel
     function delete($id)
     {
 
-        $invoice = Invoice::where('id', '=', $id)
-            ->whereNull('deleted_at')
-            ->first();
+        $invoice = $this->get($id);
 
         if(!$invoice) {
             return false;
