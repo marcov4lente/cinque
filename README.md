@@ -1,1 +1,3 @@
-# cinque
+# Cinquo
+
+Small business management suite.
