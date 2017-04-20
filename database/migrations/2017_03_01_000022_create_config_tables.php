@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateContractTables extends Migration
 {
     /**
      * Run the migrations.
@@ -16,13 +16,17 @@ class CreateUsersTable extends Migration
 
         $prefix = config('database.connections.mysql.prefix');
 
-        Schema::create($prefix.'users', function (Blueprint $table) {
+        Schema::create($prefix.'config', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('section');
+            $table->string('key');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
+            $table->bigInteger('integer_value');
+            $table->string('string_value');
+            $table->longText('text_value');
             $table->timestamps();
+            $table->bigInteger('created_by');
+            $table->bigInteger('updated_by');
         });
     }
 
@@ -33,9 +37,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-
         $prefix = config('database.connections.mysql.prefix');
-        Schema::dropIfExists($prefix.'users');
-
+        Schema::dropIfExists($prefix.'config');
     }
 }
